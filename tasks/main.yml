@@ -1,0 +1,50 @@
+---
+# tasks file for webhook/
+
+- name: Add group "webhook"
+  group: name=webhook
+
+- name: Add user "webhook"
+  user: 
+    name: webhook 
+    group: webhook
+    groups: "{{ webhook_user_groups }}"
+    home: /var/webhook
+    shell: /bin/false
+
+- name: Install webhook package
+  apt:
+    pkg: ['webhook']
+    update_cache: yes
+
+- name: Copy webhook .hooks file
+  copy:
+    src: "{{ webhook_hooks_file }}"
+    dest: /var/webhook/hooks.json
+    owner: webhook
+    group: webhook
+    mode: u=rw,g=r,o=r
+
+- name: Copy webhook scripts
+  copy:
+    src: "{{ item }}"
+    dest: "/var/webhook/{{ item | basename }}"
+    owner: webhook
+    group: webhook
+    mode: u=rwx,g=r,o=r
+  with_items: "{{ webhook_script_files }}"
+
+- name: Install systemd file for webhook
+  template: src=webhook.service.j2 dest=/etc/systemd/system/webhook.service owner=root group=root mode="u=rw,g=r,o=r"
+
+- name: Enable and start webhook service
+  service: name=webhook enabled=true state=restarted
+
+- name: add nginx server block f. webhook
+  template:
+    src: webhook.nginx.j2
+    dest: "/etc/nginx/conf.d/{{ webhook_url }}.conf"
+    owner: root
+    mode: "u=rw,g=r,o=r"
+  notify:
+    - restart nginx
