@@ -1,7 +1,7 @@
 galaxy_info:
   author: your name
-  description: your description
-  company: your company (optional)
+  description: ansible role to install webhooks
+  company: qwde
 
   license: license (GPLv2, CC-BY, etc)
 
