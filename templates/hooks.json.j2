@@ -1,0 +1,61 @@
+[
+{% for item in githubhooks %}
+{
+  "id": "{{ item.id }}"
+    "execute-command": "{{ item.cmd }}"
+    "command-working-directory": "{{ item.cwd }}"
+    "trigger-rule":
+    {
+      "and":
+        [
+        {
+          "match":
+          {
+            "type": "payload-hash-sha1",
+              "secret": "{{ item.token }}",
+              "parameter":
+              {
+                "source": "header",
+                "name": "X-Hub-Signature"
+              }
+          }
+        },
+        {
+          "match":
+          {
+            "type": "value",
+            "value": "refs/heads/{{ item.branch }}",
+            "parameter":
+            {
+              "source": "payload",
+              "name": "ref"
+            }
+          }
+        }
+      ]
+    }
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+
+{% for item in httphooks %}
+{% if loop.first and gitlabhooks %},{% endif %}
+{
+  "id": "{{ item.id }}"
+    "execute-command": "{{ item.cmd }}"
+    "response-message": "{{ item.responseMsg }}"
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "value",
+        "value": "{{ item.token }}",
+        "parameter":
+        {
+          "source": "url",
+          "name": "token"
+        }
+      }
+    }
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+]

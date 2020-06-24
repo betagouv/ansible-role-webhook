@@ -1,2 +1,6 @@
 ---
-# defaults file for webhook/
+prefix_dir: ""
+ansible_unit_test: False
+githubhooks: []
+httphooks: []
+user: "webhook"

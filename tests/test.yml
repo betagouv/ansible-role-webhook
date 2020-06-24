@@ -1,5 +1,14 @@
----
-- hosts: localhost
-  remote_user: root
+- hosts: 127.0.0.1
+  connection: local
+  tags:
+    - case-1
+  vars:
+    ansible_unit_test: True
+    githubhooks:
+      - id: "redeploy-qwde-webhook"
+        cmd: "./reloadQwde.sh"
+        cwd: "/var/"
+        branch: master
+        token: supersecretpassword
   roles:
-    - webhook/
+    - role: ../..
