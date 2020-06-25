@@ -38,7 +38,7 @@
 {% endfor %}
 
 {% for item in httphooks %}
-{% if loop.first and gitlabhooks %},{% endif %}
+{% if loop.first and githubhooks %},{% endif %}
 {
   "id": "{{ item.id }}",
   "execute-command": "{{ item.cmd }}",

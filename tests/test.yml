@@ -6,9 +6,16 @@
     ansible_unit_test: True
     githubhooks:
       - id: "redeploy-qwde-webhook"
-        cmd: "./reloadQwde.sh"
+        cmd: "./reload.sh"
         cwd: "/var/"
         branch: master
         token: supersecretpassword
+    httphooks:
+      - id: "test id"
+        cmd: "./reload.sh"
+        cwd: "/var/"
+        responseMsg: "hello, world"
+        branch: master
+        token: secretsuper
   roles:
     - role: ../..
