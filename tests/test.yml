@@ -10,6 +10,9 @@
         cwd: "/var/"
         branch: master
         token: supersecretpassword
+        args:
+          - source: "url"
+            name: "name"
     httphooks:
       - id: "test id"
         cmd: "./reload.sh"

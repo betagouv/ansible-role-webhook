@@ -4,6 +4,15 @@
   "id": "{{ item.id }}",
   "execute-command": "{{ item.cmd }}",
   "command-working-directory": "{{ item.cwd }}",
+  {% if item.args is defined %}
+  "pass-arguments-to-command": [
+   {% for arg in item.args %} {
+    "source": "{{ arg.source }}",
+    "name": "{{ arg.name }}"
+   } {% if not loop.last %},{% endif %}
+   {% endfor %}
+  ], 
+  {% endif %}
   "trigger-rule":
   {
     "and":
@@ -43,6 +52,13 @@
   "id": "{{ item.id }}",
   "execute-command": "{{ item.cmd }}",
   "response-message": "{{ item.responseMsg }}",
+  {% if item.args is defined %}
+  "pass-arguments-to-command": [
+   {% for arg in item.args %} {
+    "source": "{{ arg.source }}",
+    "name": "{{ arg.name }}"
+   } {% if not loop.last %},{% endif %} {% endfor %}
+  ], {% endif %}
   "trigger-rule":
   {
     "match":
