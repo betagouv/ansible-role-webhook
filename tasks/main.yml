@@ -24,7 +24,6 @@
     owner: webhook
     group: webhook
 
-  # TODO: put in jinja template
 - name: Copy webhook hooks.json file
   become: yes
   template:

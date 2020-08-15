@@ -4,6 +4,7 @@
     - case-1
   vars:
     ansible_unit_test: True
+    optional_args: "-secure -cert /path/to/cert"
     githubhooks:
       - id: "redeploy-qwde-webhook"
         cmd: "./reload.sh"

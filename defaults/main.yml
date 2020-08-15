@@ -4,3 +4,4 @@ ansible_unit_test: False
 githubhooks: []
 httphooks: []
 user: "webhook"
+optional_args: ""
