@@ -18,13 +18,18 @@
     #    update_cache: yes
     #  when: not ansible_unit_test
     #
+- name: check if webhook file already exists (to allow download bypass - necessary if behind firewall)
+  stat: 
+    path: /tmp/webhook.tar.gz
+  register: tarball
+
 - name: Download file with check (md5)
   tags: download
   get_url:
     url: "https://github.com/adnanh/webhook/releases/download/2.7.0/webhook-linux-amd64.tar.gz" 
     dest: "/tmp/webhook.tar.gz"
     checksum: md5:8bb63914f4ead672ff43191e91b0249f
-  when: not ansible_unit_test
+  when: not ansible_unit_test or not tarball.stat.exists
 
 - name: Unarchive a file with extra options
   tags: download
