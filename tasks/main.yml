@@ -1,8 +1,10 @@
 ---
 - name: Add group "webhook"
+  become: yes
   group: name=webhook
 
 - name: Add user "webhook"
+  become: yes
   user: 
     name: webhook 
     group: webhook
@@ -10,10 +12,24 @@
     home: /var/webhook
     shell: /bin/false
 
-- name: Install webhook package
-  apt:
-    pkg: ['webhook']
-    update_cache: yes
+    #- name: Install webhook package
+    #  apt:
+    #    pkg: ['webhook']
+    #    update_cache: yes
+    #  when: not ansible_unit_test
+    #
+- name: Download file with check (md5)
+  tags: download
+  get_url:
+    url: "https://github.com/adnanh/webhook/releases/download/2.7.0/webhook-linux-amd64.tar.gz" 
+    dest: "/tmp/webhook.tar.gz"
+    checksum: md5:8bb63914f4ead672ff43191e91b0249f
+  when: not ansible_unit_test
+
+- name: Unarchive a file with extra options
+  tags: download
+  become: yes
+  shell: tar -xvf /tmp/webhook.tar.gz --strip-components=1 -C /usr/local/bin/
   when: not ansible_unit_test
 
 - name: Create test directory

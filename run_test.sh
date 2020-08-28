@@ -31,6 +31,6 @@ errors=0
 
 for case in $cases
 do
-    ansible-playbook ./tests/test.yml -i 127.0.0.1, -t $case -e prefix_dir="cases/${case}" --ask-become-pass
+    ansible-playbook ./tests/test.yml -i 127.0.0.1, -t $case -e prefix_dir="cases/${case}" --ask-become-pass -vvv
     #test -d  ./tests/cases/case-1/var && sudo rm -rv ./tests/cases/case-1/var
 done
