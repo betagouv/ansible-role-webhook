@@ -8,7 +8,7 @@ Type=simple
 User=webhook
 Restart=on-failure
 RestartSec=5
-ExecStart=/usr/bin/webhook -verbose -hotreload -hooks /var/webhook/hooks.json {{ optional_args }}
+ExecStart=/usr/local/bin/webhook -verbose -hotreload -hooks /var/webhook/hooks.json {{ optional_args }}
 
 [Install]
 WantedBy=multi-user.target
