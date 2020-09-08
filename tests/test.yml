@@ -5,11 +5,22 @@
   vars:
     ansible_unit_test: True
     optional_args: "-secure -cert /path/to/cert"
+    webhook_groups: 
+      - ssl-certs
     githubhooks:
-      - id: "redeploy-qwde-webhook"
+      - id: "redeploy-webhook-github"
         cmd: "./reload.sh"
         cwd: "/var/"
         branch: master
+        token: supersecretpassword
+        args:
+          - source: "url"
+            name: "name"
+    gitlabhooks:
+      - id: "redeploy-webhook-gitlab"
+        cmd: "./reload.sh"
+        cwd: "/var/"
+        branch: ''
         token: supersecretpassword
         args:
           - source: "url"

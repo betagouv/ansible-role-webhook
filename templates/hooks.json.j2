@@ -28,7 +28,7 @@
               "name": "X-Hub-Signature"
             }
         }
-      },
+      }{% if item.branch %},
       {
         "match":
         {
@@ -41,13 +41,63 @@
           }
         }
       }
+      {% endif %}
+    ]
+  }
+}{% if not loop.last %},{% endif %}
+{% endfor %}
+
+{% for item in gitlabhooks %}
+{% if loop.first and githubhooks %},{% endif %}
+{
+  "id": "{{ item.id }}",
+  "execute-command": "{{ item.cmd }}",
+  "command-working-directory": "{{ item.cwd }}",
+  {% if item.args is defined %}
+  "pass-arguments-to-command": [
+   {% for arg in item.args %} {
+    "source": "{{ arg.source }}",
+    "name": "{{ arg.name }}"
+   } {% if not loop.last %},{% endif %}
+   {% endfor %}
+  ], 
+  {% endif %}
+  "trigger-rule":
+  {
+    "and":
+      [
+      {
+        "match":
+        {
+          "type": "value",
+          "value": "{{ item.token }}",
+          "parameter":
+          {
+            "source": "header",
+            "name": "X-Gitlab-Token"
+          }
+        }
+      }{% if item.branch %},
+      {
+        "match":
+        {
+          "type": "value",
+          "value": "refs/heads/{{ item.branch }}",
+          "parameter":
+          {
+            "source": "payload",
+            "name": "ref"
+          }
+        }
+      }
+      {% endif %}
     ]
   }
 }{% if not loop.last %},{% endif %}
 {% endfor %}
 
 {% for item in httphooks %}
-{% if loop.first and githubhooks %},{% endif %}
+{% if loop.first and (githubhooks or gitlabhooks) %},{% endif %}
 {
   "id": "{{ item.id }}",
   "execute-command": "{{ item.cmd }}",

@@ -8,16 +8,10 @@
   user: 
     name: webhook 
     group: webhook
-    groups: ""
+    groups: "{{ webhook_groups }}"
     home: /var/webhook
     shell: /bin/false
 
-    #- name: Install webhook package
-    #  apt:
-    #    pkg: ['webhook']
-    #    update_cache: yes
-    #  when: not ansible_unit_test
-    #
 - name: check if webhook file already exists (to allow download bypass - necessary if behind firewall)
   stat: 
     path: /tmp/webhook.tar.gz
