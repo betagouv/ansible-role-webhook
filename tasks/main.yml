@@ -1,13 +1,14 @@
 ---
 - name: Add group "webhook"
   become: yes
-  group: name=webhook
+  group:
+    name: "{{ webhook_group }}" 
 
-- name: Add user "webhook"
+- name: Add webhook user
   become: yes
   user: 
-    name: webhook 
-    group: webhook
+    name: "{{ webhook_user }}"
+    group: "{{ webhook_group }}"
     groups: "{{ webhook_groups }}"
     home: /var/webhook
     shell: /bin/false
@@ -36,22 +37,30 @@
   file:
     path: "{{ prefix_dir}}/var/webhook"
     state: directory
-    owner: webhook
-    group: webhook
+    owner: "{{ webhook_user }}"
+    group: "{{ webhook_group }}"
 
 - name: Copy webhook hooks.json file
   become: yes
   template:
     src: templates/hooks.json.j2
     dest: "{{ prefix_dir }}/var/webhook/hooks.json"
-    owner: webhook
-    group: webhook
+    owner: "{{ webhook_user }}" 
+    group: "{{ webhook_group }}"
     mode: u=rw,g=r,o=r
 
 - name: Install systemd file for webhook
-  template: src=templates/webhook.service.j2 dest={{ prefix_dir }}/etc/systemd/system/webhook.service owner=root group=root mode="u=rw,g=r,o=r"
+  template: 
+    src: templates/webhook.service.j2 
+    dest: {{ prefix_dir }}/etc/systemd/system/webhook.service 
+    owner: root 
+    group: root 
+    mode: u=rw,g=r,o=r
   when: not ansible_unit_test
 
 - name: Enable and start webhook service
-  service: name=webhook enabled=true state=restarted
+  service: 
+    name: webhook 
+    enabled: true 
+    state: restarted
   when: not ansible_unit_test
