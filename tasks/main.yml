@@ -9,7 +9,7 @@
   user: 
     name: "{{ webhook_user }}"
     group: "{{ webhook_group }}"
-    groups: "{{ webhook_groups }}"
+    groups: "{{ webhook_extra_groups }}"
     home: /var/webhook
     shell: /bin/false
 

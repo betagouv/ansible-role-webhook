@@ -2,10 +2,10 @@
 
 webhook_user: "webhook"
 webhook_group: "webhook"
+webhook_extra_groups: ''
 
 prefix_dir: ""
 ansible_unit_test: False
 githubhooks: []
 httphooks: []
-webhook_groups: ''
 optional_args: ""
