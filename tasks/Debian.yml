@@ -1,0 +1,15 @@
+---
+
+- name: Install webhook
+  package:
+    name: "webhook={{webhook_version}}"
+    state: present
+
+- name: Copy webhook hooks.json file
+  become: yes
+  template:
+    src: templates/hooks.json.j2
+    dest: "/var/webhooks.json"
+    owner: "{{ webhook_user }}" 
+    group: "{{ webhook_group }}"
+    mode: u=rw,g=r,o=r

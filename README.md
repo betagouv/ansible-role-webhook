@@ -22,23 +22,46 @@ Set the group that will be used by webhooks
 webhook_group: "webhook"
 ```
 
+Add the webhook user to additional groups
+```
+webhook_extra_groups: ''
+```
+
 ```
 prefix_dir: ""
 ```
+Below are different hook configuration, you can have multiple of these for each hook required
+```
+githubhooks:
+      - id: "redeploy-webhook-github"
+        cmd: "./reload.sh"
+        cwd: "/var/"
+        branch: master
+        token: supersecretpassword
+        args:
+          - source: "url"
+            name: "name"
+gitlabhooks:
+  - id: "redeploy-webhook-gitlab"
+    cmd: "./reload.sh"
+    cwd: "/var/"
+    branch: ''
+    token: supersecretpassword
+    args:
+      - source: "url"
+        name: "name"
+httphooks:
+  - id: "test id"
+    cmd: "./reload.sh"
+    cwd: "/var/"
+    responseMsg: "hello, world"
+    branch: master
+    token: secretsuper
+```
 
-```
-githubhooks: []
-```
-
-```
-httphooks: []
-```
 
 
 
-```
-webhook_groups: ''
-```
 
 ```
 ansible_unit_test: False

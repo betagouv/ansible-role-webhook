@@ -1,5 +1,6 @@
 ---
 
+webhook_version: "2.7.0"
 webhook_user: "webhook"
 webhook_group: "webhook"
 webhook_extra_groups: ''
