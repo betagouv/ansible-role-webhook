@@ -1,16 +1,27 @@
 galaxy_info:
-  author: your name
-  description: ansible role to install webhooks
-  company: qwde
-
-  license: license (GPLv2, CC-BY, etc)
-
+  role_name: webhook
+  author: marksie1988
+  description: ansible role to adnanh install webhooks
+  company: "Total Debug"
+  license: "license (BSD, MIT)"
   min_ansible_version: 2.4
-  
   platforms:
+  - name: EL
+    versions:
+      - all
+  - name: Amazon
+    versions: 
+      - all
   - name: Ubuntu
     versions:
-    - all
+      - all
+  - name: Debian
+    versions: 
+      - all
 
-  galaxy_tags: [webhook]
-dependencies: []
+  galaxy_tags: 
+    - webhook
+    - adnanh
+    - hooks
+    - gitlab
+    - github

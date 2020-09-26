@@ -1,12 +1,10 @@
 ---
-
 webhook_version: "2.7.0"
 webhook_user: "webhook"
 webhook_group: "webhook"
 webhook_extra_groups: ''
+webhook_port: '9000'
 
-prefix_dir: ""
-ansible_unit_test: False
 githubhooks: []
 httphooks: []
 optional_args: ""

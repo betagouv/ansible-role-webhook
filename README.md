@@ -1,9 +1,9 @@
-# ansible-webhook-role
+# ansible-role-webhook
 Ansible role to install [adnanh webhooks server](https://github.com/adnanh/webhook)
 
-Fork from https://github.com/reikjarloekl/ansible-webhook-role. Deviates by not install nginx, and making the hooks.json a partially complete jinja template.
+Fork from https://github.com/andsild/ansible-webhook-role.
 
-This webhook is _not_ complete with configurable variables, so I won't document it extensively. You can have a look at ./tests/test.yml to get an idea on how to use the role yourself.
+This webhook is _not_ complete and is still being developed
 
 # Tasks
 
@@ -27,9 +27,11 @@ Add the webhook user to additional groups
 webhook_extra_groups: ''
 ```
 
+The default port that webhook will start on
 ```
-prefix_dir: ""
+webhook_port: '9000'
 ```
+
 Below are different hook configuration, you can have multiple of these for each hook required
 ```
 githubhooks:
@@ -59,14 +61,12 @@ httphooks:
     token: secretsuper
 ```
 
-
-
-
-
+Test script
 ```
 ansible_unit_test: False
 ```
 
+Optional arguments, see: [Webhook-Parameters](https://github.com/adnanh/webhook/blob/master/docs/Webhook-Parameters.md)
 ```
 optional_args: ""
 ```

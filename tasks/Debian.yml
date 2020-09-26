@@ -5,11 +5,9 @@
     name: "webhook={{webhook_version}}"
     state: present
 
-- name: Copy webhook hooks.json file
-  become: yes
-  template:
-    src: templates/hooks.json.j2
-    dest: "/var/webhooks.json"
-    owner: "{{ webhook_user }}" 
-    group: "{{ webhook_group }}"
-    mode: u=rw,g=r,o=r
+- name: Add optional arguments if there are any
+  lineinfile:
+    path: /etc/systemd/system/multi-user.target.wants/webhook.service
+    regexp: '^ExecStart='
+    line: "ExecStart=/usr/bin/webhook -nopanic -hooks /etc/webhook.conf -port {{ webhook_port }} {{ optional_args }}"
+  when: optional_args is defined

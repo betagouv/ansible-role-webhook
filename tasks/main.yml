@@ -1,4 +1,14 @@
 ---
 
+# Copy webhooks hook file
+- name: Copy webhook hooks.json file
+  become: yes
+  template:
+    src: templates/hooks.json.j2
+    dest: "/etc/webhooks.json"
+    owner: "{{ webhook_user }}" 
+    group: "{{ webhook_group }}"
+    mode: u=rw,g=r,o=r
+
 # include OS Specific Tasks.
 - include_tasks: "{{ ansible_os_family }}.yml"

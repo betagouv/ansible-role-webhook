@@ -24,22 +24,12 @@
     url: "https://github.com/adnanh/webhook/releases/download/{{ webhook_version }}/webhook-linux-amd64.tar.gz" 
     dest: "/tmp/webhook.tar.gz"
     checksum: md5:8bb63914f4ead672ff43191e91b0249f
-  when: not ansible_unit_test or not tarball.stat.exists
+  when: not tarball.stat.exists
 
 - name: Unarchive a file with extra options
   tags: download
   become: yes
   shell: tar -xvf /tmp/webhook.tar.gz --strip-components=1 -C /usr/local/bin/
-  when: not ansible_unit_test
-
-- name: Copy webhook hooks.json file
-  become: yes
-  template:
-    src: templates/hooks.json.j2
-    dest: "/etc/webhooks.json"
-    owner: "{{ webhook_user }}" 
-    group: "{{ webhook_group }}"
-    mode: u=rw,g=r,o=r
 
 - name: Install systemd file for webhook
   template: 
@@ -48,11 +38,9 @@
     owner: root 
     group: root 
     mode: u=rw,g=r,o=r
-  when: not ansible_unit_test
 
 - name: Enable and start webhook service
   service: 
     name: webhook 
     enabled: true 
     state: restarted
-  when: not ansible_unit_test
