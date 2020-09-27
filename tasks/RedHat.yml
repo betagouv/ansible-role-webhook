@@ -29,7 +29,12 @@
 - name: Unarchive a file with extra options
   tags: download
   become: yes
-  shell: tar -xvf /tmp/webhook.tar.gz --strip-components=1 -C /usr/local/bin/
+  unarchive:
+    src: /tmp/webhook.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    extra_opts:
+      - --strip-components=1
 
 - name: Install systemd file for webhook
   template: 
