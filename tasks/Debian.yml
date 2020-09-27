@@ -2,7 +2,7 @@
 
 - name: Install webhook
   package:
-    name: "webhook={{webhook_version}}"
+    name: "webhook={{ webhook_version }}"
     state: present
 
 - name: Add optional arguments if there are any
