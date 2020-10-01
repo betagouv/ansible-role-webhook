@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        molecule_distro: 
+        molecule_distro:
           - centos8
           - centos7
           - ubuntu1804
@@ -19,7 +19,7 @@ jobs:
     env:
       ANSIBLE_CALLBACK_WHITELIST: profile_tasks
       ROLE_NAME: webhook
-  
+
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python 3
