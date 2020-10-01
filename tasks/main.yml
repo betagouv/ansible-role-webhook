@@ -59,4 +59,3 @@
     name: webhook
     enabled: true
     state: started
-
