@@ -33,7 +33,7 @@
   get_url:
     url: "https://github.com/adnanh/webhook/releases/download/{{ webhook_version }}/webhook-linux-amd64.tar.gz"
     dest: "/tmp/webhook.tar.gz"
-    checksum: " {{ webhook_checksum }} "
+    checksum: "{{ webhook_checksum }}"
   when: not tarball.stat.exists
 
 - name: Unarchive a file with extra options
