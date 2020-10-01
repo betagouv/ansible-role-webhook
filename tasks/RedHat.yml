@@ -1,17 +1,4 @@
 ---
-- name: Add group "webhook"
-  become: true
-  group:
-    name: "{{ webhook_group }}"
-
-- name: Add webhook user
-  become: true
-  user:
-    name: "{{ webhook_user }}"
-    group: "{{ webhook_group }}"
-    groups: "{{ webhook_extra_groups }}"
-    home: /var/webhook
-    shell: /bin/false
 
 - name: check if webhook file already exists (to allow download bypass - necessary if behind firewall)
   stat:
