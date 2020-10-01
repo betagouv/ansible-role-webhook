@@ -2,11 +2,11 @@
 
 # Copy webhooks hook file
 - name: Copy webhook hooks.json file
-  become: yes
+  become: true
   template:
     src: templates/hooks.json.j2
     dest: "/etc/webhooks.json"
-    owner: "{{ webhook_user }}" 
+    owner: "{{ webhook_user }}"
     group: "{{ webhook_group }}"
     mode: u=rw,g=r,o=r
 

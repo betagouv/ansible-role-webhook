@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    webhook_groups: 
+    webhook_groups:
       - ssl-certs
     githubhooks:
       - id: "redeploy-webhook-github"

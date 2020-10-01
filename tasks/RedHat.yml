@@ -1,12 +1,12 @@
 ---
 - name: Add group "webhook"
-  become: yes
+  become: true
   group:
-    name: "{{ webhook_group }}" 
+    name: "{{ webhook_group }}"
 
 - name: Add webhook user
-  become: yes
-  user: 
+  become: true
+  user:
     name: "{{ webhook_user }}"
     group: "{{ webhook_group }}"
     groups: "{{ webhook_extra_groups }}"
@@ -14,38 +14,38 @@
     shell: /bin/false
 
 - name: check if webhook file already exists (to allow download bypass - necessary if behind firewall)
-  stat: 
+  stat:
     path: /tmp/webhook.tar.gz
   register: tarball
 
 - name: Download file with check (md5)
   tags: download
   get_url:
-    url: "https://github.com/adnanh/webhook/releases/download/{{ webhook_version }}/webhook-linux-amd64.tar.gz" 
+    url: "https://github.com/adnanh/webhook/releases/download/{{ webhook_version }}/webhook-linux-amd64.tar.gz"
     dest: "/tmp/webhook.tar.gz"
     checksum: md5:8bb63914f4ead672ff43191e91b0249f
   when: not tarball.stat.exists
 
 - name: Unarchive a file with extra options
   tags: download
-  become: yes
+  become: true
   unarchive:
     src: /tmp/webhook.tar.gz
     dest: /usr/local/bin
-    remote_src: yes
+    remote_src: true
     extra_opts:
       - --strip-components=1
 
 - name: Install systemd file for webhook
-  template: 
-    src: templates/webhook.service.j2 
-    dest: /etc/systemd/system/webhook.service 
-    owner: root 
-    group: root 
+  template:
+    src: templates/webhook.service.j2
+    dest: /etc/systemd/system/webhook.service
+    owner: root
+    group: root
     mode: u=rw,g=r,o=r
 
 - name: Enable and start webhook service
-  service: 
-    name: webhook 
-    enabled: true 
+  service:
+    name: webhook
+    enabled: true
     state: restarted

@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: webhook
   author: marksie1988
@@ -10,16 +11,16 @@ galaxy_info:
     versions:
       - all
   - name: Amazon
-    versions: 
+    versions:
       - all
   - name: Ubuntu
     versions:
       - all
   - name: Debian
-    versions: 
+    versions:
       - all
 
-  galaxy_tags: 
+  galaxy_tags:
     - webhook
     - adnanh
     - hooks
