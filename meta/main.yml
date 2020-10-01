@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: webhook
   author: marksie1988
-  description: ansible role to adnanh install webhooks
+  description: ansible role to install adnanh webhooks
   company: "Total Debug"
   license: "license (BSD, MIT)"
   min_ansible_version: 2.4
