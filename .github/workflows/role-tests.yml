@@ -5,7 +5,7 @@ on:
   - push
 
 jobs:
-  lintAllTheThings:
+  yamllint:
     runs-on: ubuntu-latest
     steps:
       - name: Getting your configuration from GitHub
