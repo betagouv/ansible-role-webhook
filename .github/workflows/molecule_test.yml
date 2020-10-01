@@ -32,7 +32,7 @@ jobs:
           pip install molecule yamllint ansible-lint docker
           cd ../
           mv ansible-role-$ROLE_NAME totaldebug.$ROLE_NAME
-          cd geerlingguy.$ROLE_NAME
+          cd totaldebug.$ROLE_NAME
 
       - name: Test with molecule
         run: |
