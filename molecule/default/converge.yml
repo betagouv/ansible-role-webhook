@@ -39,4 +39,4 @@
       changed_when: false
 
   roles:
-    - role: totaldebug.webhook
+    - role: ansible-role-webhook
