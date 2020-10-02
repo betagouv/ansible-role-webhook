@@ -8,4 +8,4 @@ rules:
 
 ignore: |
   .github/stale.yml
-  .github/workflows/molecule_test.yml
+  .github/workflows/role-tests.yml
