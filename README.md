@@ -3,34 +3,20 @@ Ansible role to install [adnanh webhooks server](https://github.com/adnanh/webho
 
 Fork from https://github.com/andsild/ansible-webhook-role.
 
-This webhook is _not_ complete and is still being developed
-
-# Tasks
-
-- Creates Group called webhook
-- Creates webhook_user and adds to webhook group
+This webhook has configurable variables that are missing from the original fork
 
 # Role Variables
 
-Set the username that will be used by webhooks
-```
-webhook_user: "webhook"
-```
-
-Set the group that will be used by webhooks
-```
-webhook_group: "webhook"
-```
-
-Add the webhook user to additional groups
-```
-webhook_extra_groups: ''
-```
-
-The default port that webhook will start on
-```
-webhook_port: '9000'
-```
+- `webhook_version`: Sets the version of webhook to install `2.7.0`
+- `webhook_checksum`: Sets the checksum for the version to install defaults `md5:8bb63914f4ead672ff43191e91b0249f`
+- `webhook_user`: Set the user that webhook will use dafaults `webhook`
+- `webhook_group`: Set the group that webhook will use defaults `webhook`
+- `webhook_extra_groups`: sets any additional groups webhook requires
+- `webhook_port`: sets the port that webhook will listen defaults `9000`
+- `optional_args`: Optional arguments, see: [Webhook-Parameters](https://github.com/adnanh/webhook/blob/master/docs/Webhook-Parameters.md)
+- `githubhooks:[]`: Required for Github hooks
+- `gitlabhooks:[]`: Required for Gitlab hooks
+- `httphooks:[]`: Required for http hooks
 
 Below are different hook configuration, you can have multiple of these for each hook required
 ```
@@ -59,14 +45,4 @@ httphooks:
     responseMsg: "hello, world"
     branch: master
     token: secretsuper
-```
-
-Test script
-```
-ansible_unit_test: False
-```
-
-Optional arguments, see: [Webhook-Parameters](https://github.com/adnanh/webhook/blob/master/docs/Webhook-Parameters.md)
-```
-optional_args: ""
 ```
